@@ -1,56 +1,124 @@
-# Machine Learning-Based Estimation of Monthly GDP
+# Replication Package for Monthly GDP Disaggregation
 
-This repository is created to replicate the results from the study *"Machine Learning-Based Estimation of Monthly GDP."*
+Paper: **Temporal Disaggregation of GDP: When Does Machine Learning Help?**  
+Manuscript file: `Temporal_Disaggregation_of_GDP.pdf`
 
-The repository consists of three main directories:
-1. `data/`
-2. `model/`
-3. `figures/`
+## 1) Replication Scope
 
-Each directory contains subfolders for the countries analyzed in the study: **China**, **Germany**, **the UK**, and **the US**.
+The replication pipeline has 5 stages:
 
----
+1. Collect monthly/quarterly source series
+2. Merge country-level master datasets
+3. Run estimation + evaluation + temporal disaggregation
+4. Compile summary result tables
+5. Generate paper figures
 
-## 1. `data/` directory
+Core entry scripts:
 
-This folder includes all source data and preprocessing scripts.
+- `scripts/collect_data.py`
+- `scripts/merge_data.py`
+- `scripts/run_country.py`
+- `scripts/compile_results.py`
+- `scripts/generate_figures.py`
 
-- **`collecting_data.ipynb`**  
-  This notebook collects macroeconomic indicators via public APIs, including FRED and Yahoo Finance.  
-  To use the FRED API, you must register for a (free) API key at [https://fred.stlouisfed.org/](https://fred.stlouisfed.org/).
+## 2) Environment Setup
 
-- **`merging_data.ipynb`**  
-  This notebook merges and cleans the collected data into a unified file format: `master_<country>.csv`, which is used in model training.  
-  While you can collect the data yourself, we also provide pre-processed datasets for each country in this directory.
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
----
+Requirements:
 
-## 2. `model/` directory
+- Python >= 3.9
+- TensorFlow >= 2.15 (for MLP)
+- Optional FRED API key: https://fred.stlouisfed.org/
 
-This folder contains modeling scripts organized by country.
+## 3) Full Replication (Recommended Order)
 
-Each country folder contains implementations of the following models:
-- **MLP (Multi-Layer Perceptron)**
-- **LSTM (Long Short-Term Memory)**
-- **XGBoost**
-- **Elastic Net**
+### Step A. Collect raw data
 
-Training and evaluation results are automatically saved as `.csv` files. These results are later used to generate tables and figures for the paper.
+```bash
+python scripts/collect_data.py --api_key YOUR_FRED_KEY
+```
 
----
+This creates files under `data/raw/`.
 
-## 3. `figures/` directory
+### Step B. Build merged master files
 
-This folder creates final figures and tables used in the paper, based on model outputs from the `model/` directory.
+```bash
+python scripts/merge_data.py
+```
 
-Before running the scripts here, you need to manually compile a country-level summary result file and save it as a `.csv`.  
-Reference `.csv` files used in the paper are included and can serve as examples.
+This creates `data/master_China.csv`, `data/master_Germany.csv`,
+`data/master_UK.csv`, and `data/master_US.csv`.
 
----
+### Step C. Run country estimations
 
-## Contact
+```bash
+# Example: one country, all models, 2 quarterly lags
+python scripts/run_country.py --country china --model all --lags 2
 
-For questions regarding this project, please contact:
+# Example: all countries, all models
+python scripts/run_country.py --country all --model all --lags 2
+```
 
-**Yonggeun Jung**  
-✉️ yonggeun.jung@ufl.edu
+### Step D. Compile summary tables
+
+```bash
+python scripts/compile_results.py
+```
+
+This creates:
+
+- `results/summary_all.csv`
+- `results/dm_tests_all.csv`
+
+### Step E. Generate paper figures
+
+```bash
+python scripts/generate_figures.py
+```
+
+This creates PDF figures under `figures/`.
+
+## 4) Output Files
+
+For each country and model, outputs are written to `results/<country>/`:
+
+- `ew_<CC>_<model>_lag<N>.csv` (expanding-window predictions)
+- `metrics_<CC>_<model>_lag<N>.csv` (RMSE/MAE and related metrics)
+- `monthly_gdp_<CC>_<model>_lag<N>.csv` (monthly disaggregated GDP)
+- `shap_<CC>_<model>_lag<N>.csv` (feature importance where supported)
+
+## 5) Manual Data Needed Before Merge
+
+Before `scripts/merge_data.py`, place these files in `data/raw/`:
+
+1. `uk_m1_emp.csv` (DATE, M1, Emp)
+2. `de_price_compet.csv` (DATE, price_comp)
+3. `Shanghai_Composite.csv` (Date, ssec)
+
+If any are missing, merge still runs, but those indicators are excluded.
+
+## 6) Minimal Public Repository Structure
+
+```
+config/           # Country-specific settings (train_ratio, end_date, variable lists)
+scripts/
+src/
+figures/
+requirements.txt
+README.md
+Temporal_Disaggregation_of_GDP.pdf
+```
+
+Local/generated artifacts (`data/raw/`, `data/master_*.csv`, `results/`,
+`tuner_dir/`, caches) are intentionally excluded from version control.
+
+## 7) Reproducibility Notes
+
+- Use the same `--lags` value as in the paper run you want to replicate.
+- Results can vary slightly for stochastic ML models unless seeds and
+  hardware/software environment are fixed.

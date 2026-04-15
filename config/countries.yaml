@@ -1,0 +1,117 @@
+# ================================================================
+#  Country Configurations for Monthly GDP Estimation
+# ================================================================
+# train_ratio: temporal split for scaling fit and full-sample model.
+#   0.5 aligns OOS evaluation with GFC/COVID-era stress (e.g. US ~2008Q3+).
+# end_date: sample ends inclusive (2024-12-31 => 2024Q4); excludes 2025 preliminary.
+# Variables are categorized by economic dimension for transparency.
+# Categories: production, expenditure, financial, labor, trade,
+#             monetary, prices, other
+#
+# log_diff_cols: variables that are log-differenced (non-stationary
+#   in levels, confirmed by ADF test). All other X columns are
+#   treated as stationary levels and standardized via Z-score.
+# ================================================================
+
+china:
+  master_csv: "master_China.csv"
+  target_col: "Real GDP"
+  start_date: "1994-01-01"
+  end_date: "2024-12-31"
+  train_ratio: 0.5
+  seed: 42
+  seasonal_adjust: "all"             # Apply STL to all X columns (Referee 3)
+  log_diff_cols:
+    - "Eff. Exchange Rate"     # financial
+    - "SSEC"                   # financial (Shanghai Composite)
+    - "US imports"             # trade
+    - "Exchange"               # financial
+    - "Uncertainty"            # other
+    - "Total_reserves"         # monetary
+    - "Imports"                # trade
+    - "Exports"                # trade
+    - "PPI"                    # prices
+  # non-log columns (auto-detected): CPI, IP, unemployment, etc.
+
+united_states:
+  master_csv: "master_US.csv"
+  target_col: "Real GDP"
+  start_date: "1992-01-01"
+  end_date: "2024-12-31"
+  train_ratio: 0.5
+  seed: 42
+  log_diff_cols:
+    - "Ids_Prd"
+    - "R_Csump"
+    - "All_Emp"
+    - "NetExports"
+    - "M1"
+    - "M2"
+    - "CPI"
+    - "^GSPC"
+    - "Labor_partic"
+  diff_cols:
+    - "Intr_10Y"               # first-difference (rate, not log)
+    - "Moody_aaa"              # first-difference (rate, not log)
+
+united_kingdom:
+  master_csv: "master_UK.csv"
+  target_col: "Real GDP"
+  start_date: "1991-01-01"
+  end_date: "2024-12-31"
+  train_ratio: 0.5
+  seed: 42
+  log_diff_cols:
+    - "Unemp"
+    - "Exchange"
+    - "Prod_Vol"
+    - "Emp"
+    - "Share_Prices"
+    - "FTSE100"
+    - "Exports"
+    - "Imports"
+    - "Total Reserves"
+    - "M1"
+    - "CPI"
+  diff_cols:
+    - "Intr_10Y"               # first-difference
+    - "Intr_Rate"              # first-difference
+
+germany:
+  master_csv: "master_Germany.csv"
+  target_col: "Real GDP"
+  start_date: "1991-01-01"
+  end_date: "2024-12-31"
+  train_ratio: 0.5
+  seed: 42
+  log_diff_cols:
+    - "Eff_Ex_Rate"            # financial
+    - "Uncertainty"            # other
+    - "price_comp"             # prices
+    - "Prod_Vol"               # production
+    - "Unemp"                  # labor
+    - "Total Reserves"         # monetary
+    - "Imports"                # trade
+    - "Exports"                # trade
+    - "Retail"                 # expenditure
+    - "DAX"                    # financial
+    - "CPI"                    # prices
+
+# ================================================================
+#  Model Hyperparameter Defaults
+# ================================================================
+model_defaults:
+  mlp:
+    max_trials: 30
+    max_layers: 2
+    max_units: 64
+    epochs: 500
+    patience: 30
+    batch_size: 4
+  xgboost:
+    cv_folds: 5
+  elastic_net:
+    n_bootstrap: 5000
+    n_alphas: 100
+    cv_folds: 5
+  chow_lin: {}

@@ -1,0 +1,22 @@
+.DS_Store
+
+# Python cache/build artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Jupyter artifacts
+.ipynb_checkpoints/
+
+# Local virtual environments
+.venv/
+venv/
+env/
+
+# ML tuning/checkpoints (local only)
+tuner_dir/
+
+# Generated data/results (keep local, do not publish by default)
+data/raw/
+data/master_*.csv
+results/

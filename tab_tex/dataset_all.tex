@@ -1,0 +1,77 @@
+\begin{longtable}{llcc}
+\caption{Dataset Description by Country} \label{tab:dataset_all} \\
+\toprule
+Variable & Code & Unit Root & Transform. \\
+\midrule
+\endfirsthead
+\toprule
+Variable & Code & Unit Root & Transform. \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\textit{China} & & & \\
+CPI (All Items, Growth) & \texttt{CPALTT01CNM657N} & No & $(X_m - \mu_j)/\sigma_j$ \\
+PPI (Furniture, Household) & \texttt{WPU1261} & Yes & $\Delta\log(X_m)$ \\
+Total Reserves (excl.\ gold) & \texttt{TRESEGCNM052N} & Yes & $\Delta\log(X_m)$ \\
+Exports & \texttt{XTEXVA01CNM664S} & Yes & $\Delta\log(X_m)$ \\
+Imports & \texttt{XTIMVA01CNM664S} & Yes & $\Delta\log(X_m)$ \\
+Exchange Rate (RMB/USD) & \texttt{EXCHUS} & Yes & $\Delta\log(X_m)$ \\
+Policy Uncertainty & \texttt{CHNMAINLANDEPU} & Yes & $\Delta\log(X_m)$ \\
+US Imports from China & \texttt{IMPCH} & Yes & $\Delta\log(X_m)$ \\
+Effective Exchange Rate & \texttt{RBCNBIS} & Yes & $\Delta\log(X_m)$ \\
+SSEC Index & \texttt{Investing.com} & Yes & $\Delta\log(X_m)$ \\
+Real GDP & \texttt{CHNGDPNQDSMEI} & --- & $\Delta\log(\text{GDP}_q)$ \\
+\addlinespace
+\textit{Germany} & & & \\
+CPI (All Items) & \texttt{DEUCPIALLMINMEI} & Yes & $\Delta\log(X_m)$ \\
+Unemployment Rate & \texttt{LRHUTTTTDEM156S} & Yes & $\Delta\log(X_m)$ \\
+Production Volume & \texttt{DEUPROINDMISMEI} & Yes & $\Delta\log(X_m)$ \\
+Retail Trade & \texttt{DEUSARTMISMEI} & Yes & $\Delta\log(X_m)$ \\
+Exports & \texttt{XTEXVA01DEM664S} & Yes & $\Delta\log(X_m)$ \\
+Imports & \texttt{XTIMVA01DEM664S} & Yes & $\Delta\log(X_m)$ \\
+Total Reserves (excl.\ gold) & \texttt{TRESEGDEM052N} & Yes & $\Delta\log(X_m)$ \\
+Exchange Rate & \texttt{CCUSMA02DEM650N} & No & $(X_m - \mu_j)/\sigma_j$ \\
+Effective Exchange Rate & \texttt{RNDEBIS} & Yes & $\Delta\log(X_m)$ \\
+Policy Uncertainty & \texttt{EUEPUINDXM} & Yes & $\Delta\log(X_m)$ \\
+DAX Index & \texttt{Yahoo Finance} & Yes & $\Delta\log(X_m)$ \\
+Real GDP & \texttt{CLVMNACSCAB1GQDE} & --- & $\Delta\log(\text{GDP}_q)$ \\
+Price Competitiveness & \texttt{Bundesbank} & Yes & $\Delta\log(X_m)$ \\
+\addlinespace
+\textit{UK} & & & \\
+Share Prices & \texttt{SPASTT01GBM661N} & Yes & $\Delta\log(X_m)$ \\
+CPI (All Items) & \texttt{GBRCPIALLMINMEI} & Yes & $\Delta\log(X_m)$ \\
+Production Volume & \texttt{GBRPROINDMISMEI} & Yes & $\Delta\log(X_m)$ \\
+Interest Rate (Gov Bond) & \texttt{INTGSBGBM193N} & Yes & $\Delta X_m$ \\
+Interest Rate (10Y Gov) & \texttt{IRLTLT01GBM156N} & Yes & $\Delta X_m$ \\
+Total Reserves (excl.\ gold) & \texttt{TRESEGGBM052N} & Yes & $\Delta\log(X_m)$ \\
+Exchange Rate (GBP/USD) & \texttt{EXUSUK} & Yes & $\Delta\log(X_m)$ \\
+Imports & \texttt{XTIMVA01GBM664S} & Yes & $\Delta\log(X_m)$ \\
+Exports & \texttt{XTEXVA01GBM664S} & Yes & $\Delta\log(X_m)$ \\
+Unemployment Rate & \texttt{ONS} & Yes & $\Delta\log(X_m)$ \\
+FTSE 100 Index & \texttt{Yahoo Finance} & Yes & $\Delta\log(X_m)$ \\
+Real GDP & \texttt{NGDPRSAXDCGBQ} & --- & $\Delta\log(\text{GDP}_q)$ \\
+M1 Money Stock & \texttt{BOE} & Yes & $\Delta\log(X_m)$ \\
+Employment Rate & \texttt{ONS} & Yes & $\Delta\log(X_m)$ \\
+\addlinespace
+\textit{US} & & & \\
+Avg.\ Weekly Hours, Manuf. & \texttt{AWHMAN} & No & $(X_m - \mu_j)/\sigma_j$ \\
+CPI (All Items) & \texttt{CPIAUCSL} & Yes & $\Delta\log(X_m)$ \\
+Industrial Production & \texttt{INDPRO} & Yes & $\Delta\log(X_m)$ \\
+Real Personal Consum. & \texttt{DPCERA3M086SBEA} & Yes & $\Delta\log(X_m)$ \\
+Effective Fed Funds Rate & \texttt{FEDFUNDS} & No & $(X_m - \mu_j)/\sigma_j$ \\
+Interest Rate (10Y Trea.) & \texttt{GS10} & Yes & $\Delta X_m$ \\
+S\&P 500 Volatility & \texttt{VIXCLS} & No & $(X_m - \mu_j)/\sigma_j$ \\
+Unemployment Rate & \texttt{UNRATE} & No & $(X_m - \mu_j)/\sigma_j$ \\
+Nonfarm Payroll Emp. & \texttt{PAYEMS} & Yes & $\Delta\log(X_m)$ \\
+Labor Force Participation & \texttt{CIVPART} & Yes & $\Delta\log(X_m)$ \\
+M1 Money Stock & \texttt{M1SL} & Yes & $\Delta\log(X_m)$ \\
+M2 Money Stock & \texttt{M2SL} & Yes & $\Delta\log(X_m)$ \\
+Net Exports & \texttt{BOPTEXP} & Yes & $\Delta\log(X_m)$ \\
+Moody's AAA Bond Yield & \texttt{AAA} & Yes & $\Delta X_m$ \\
+S\&P 500 Index & \texttt{Yahoo Finance} & Yes & $\Delta\log(X_m)$ \\
+Real GDP & \texttt{GDPC1} & --- & $\Delta\log(\text{GDP}_q)$ \\
+\addlinespace
+\end{longtable}
+\vspace{0.5em}
+\noindent{\footnotesize \textit{Note}: Most series are from FRED. Stock indices are from Yahoo Finance. SSEC Index is from Investing.com. UK M1 and employment data are from BOE/ONS. Germany price competitiveness is from the Deutsche Bundesbank. ``Unit Root'' indicates non-stationarity based on the Augmented Dickey-Fuller test at the 5\% level and economic considerations. $\Delta\log(X_m)$: log-difference; $\Delta X_m$: first-difference (applied to interest rates); $(X_m - \mu_j)/\sigma_j$: Z-score standardization.}
