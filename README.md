@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 # Replication Package for Monthly GDP Disaggregation
 
 Paper: **Temporal Disaggregation of GDP: When Does Machine Learning Help?**  
@@ -102,7 +107,7 @@ Before `scripts/merge_data.py`, place these files in `data/raw/`:
 
 If any are missing, merge still runs, but those indicators are excluded.
 
-## 6) Minimal Public Repository Structure
+## 6) Repository layout
 
 ```
 config/           # Country-specific settings (train_ratio, end_date, variable lists)
